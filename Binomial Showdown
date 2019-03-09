@@ -1,0 +1,21 @@
+Write a C program to compute binomial showdown using the following binomial co-efficients. Choose k elements from n elements.
+
+#include<stdio.h>
+int fact(int n){
+    if(n==0 || n==1) return 1;
+    return n*fact(n-1);
+}
+int main()
+{
+	int n,k,res;
+	printf("Enter the value of n and k\n");
+	scanf("%d %d",&n,&k);
+	if(n>=1 && (k>=0 && k<=n)){
+	       res = fact(n)/((fact(k))*(fact(n-k)));
+	       printf("%d",res);
+	}
+	else{
+	    printf("Invalid Input");
+	}
+	return 0;
+}
