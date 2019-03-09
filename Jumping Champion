@@ -1,0 +1,61 @@
+
+
+An integer N is called the jumping champion if it is the most frequently occurring difference between consecutive primes.
+For example, consider the consecutive primes 2 3 5 7 11.The differences between primes are 1 2 2 4. Therefore, for this set of primes, the jumping champion is 2 (occurring two times).
+
+Write a C program that calculates the jumping champion of all the primes numbers that are defined between a lower(L) and an upper(U) bound.
+The upper and lower bound are considered themselves to be inside the limit.
+
+#include<stdio.h>
+int isprime(int n){
+    if(n==1 || n%2==0) return 0;
+    if(n==2) return 1;
+    int i;
+    for(i=2;i<=n/2;i++){
+        if(n%i==0) return 0;
+    }
+    return 1;
+}
+
+int jumped(int l,int u){
+    int prime[u-l],diff[u-l-1],ip=0,id=0,occur=0,jump=0,moccur=0;
+    int i,j;
+    for(i=l;i<=u;i++){
+        if(isprime(i)){
+            prime[ip]=i;
+            ip++;
+        }
+    }
+    for(i=0;i<ip-1;i++){
+        diff[id] = prime[i+1]-prime[i];
+        id++;
+    }
+    for(i=0;i<id;i++){
+        for(j=i+1;j<id;j++){
+            if(diff[i]==diff[j]){
+                occur++;
+            }
+        }
+        if(occur>moccur){
+            moccur=occur;
+            jump=diff[i];
+        }
+            occur=0;
+    }
+    return jump;
+    
+}
+int main()
+{
+    int l,u;
+    printf("Enter the lower bound and upper bound values\n");
+    scanf("%d %d",&l,&u);
+    int t = jumped(l,u);
+    if(t > 1){
+        printf("The jumping champion is %d",t);
+    }
+    else{
+        printf("No jumping champion");
+    }
+	return 0;
+}
